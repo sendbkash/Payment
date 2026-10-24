@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyPay Payment</title>
+<style>
+:root{
+  --pink:#e2136e;
+  --orange:#f58220;
+  --purple:#7b2b8e;
+  --teal:#009c8d;
+  --navy:#172538;
+  --muted:#68778c;
+  --border:#e1e7ef;
+  --green:#087f50;
+  --red:#d92d3a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#edf1f7;
+  color:#19283b;
+}
+.topbar{
+  height:60px;
+  background:var(--navy);
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 14px;
+}
+.brand{font-size:20px;font-weight:800}
+.brand span{
+  display:inline-grid;
+  place-items:center;
+  background:var(--pink);
+  border-radius:9px;
+  width:31px;height:31px;
+}
+.topbar button{
+  background:transparent;color:white;
+  border:1px solid #718096;
+  border-radius:8px;padding:8px 10px;cursor:pointer;
+}
+.desktop-note{
+  text-align:center;color:#78869a;
+  font-size:12px;padding:12px;
+}
+.stage{
+  display:flex;justify-content:center;
+  padding:0 10px 28px;
+}
+.phone{
+  width:100%;
+  max-width:390px;
+  min-height:650px;
+  background:white;
+  border:1px solid #dce3ed;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 35px #17253817;
+}
+.screen{display:none}
+.screen.active{display:block}
+.provider-header{
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  background:var(--theme,var(--pink));
+  color:white;
+  font-size:21px;
+  font-weight:800;
+  position:relative;
+}
+.provider-logo{
+  display:grid;place-items:center;
+  width:31px;height:31px;
+  border-radius:9px;
+  background:#ffffff2b;
+  font-weight:900;
+}
+.back{
+  position:absolute;left:13px;
+  border:0;background:transparent;
+  color:white;font-size:29px;cursor:pointer;
+}
+.content{padding:22px 19px 25px}
+h1{font-size:23px;line-height:1.4;margin:0 0 8px}
+h2{font-size:18px;margin:0 0 12px}
+p{line-height:1.65}
+.muted{font-size:13px;color:var(--muted);line-height:1.65}
+.summary{
+  background:#f7f9fc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;margin:17px 0;
+}
+.line{
+  display:flex;justify-content:space-between;
+  gap:10px;margin:11px 0;font-size:13px;
+}
+.line span:first-child{color:var(--muted)}
+.line strong{text-align:right;overflow-wrap:anywhere}
+.payment-option{
+  display:flex;align-items:center;gap:11px;
+  padding:12px;border:1px solid var(--border);
+  border-radius:12px;margin:10px 0;
+  color:inherit;text-decoration:none;
+}
+.payment-option:hover{
+  border-color:var(--theme,var(--pink));
+  background:#fafbfe;
+}
+.payment-logo{
+  width:42px;height:42px;
+  border-radius:11px;color:white;
+  display:grid;place-items:center;
+  font-size:21px;font-weight:900;flex-shrink:0;
+}
+.payment-copy{flex:1}
+.payment-copy b{font-size:15px}
+.payment-copy small{
+  display:block;margin-top:4px;
+  font-size:11px;color:var(--muted);
+}
+.arrow{color:#94a3b8;font-size:25px}
+label{display:block;font-size:13px;font-weight:700;margin:15px 0 7px}
+input,textarea,select{
+  display:block;width:100%;
+  border:1px solid #cbd5e1;border-radius:9px;
+  padding:12px;font:inherit;font-size:14px;
+  background:white;color:#19283b;
+}
+textarea{resize:vertical;min-height:65px}
+.btn{
+  border:0;border-radius:9px;padding:13px 12px;
+  background:var(--theme,var(--pink));color:white;
+  font-size:14px;font-weight:750;cursor:pointer;
+  width:100%;margin-top:12px;
+}
+.btn.secondary{
+  background:#edf2f7;color:#26364b;
+  border:1px solid var(--border);
+}
+.notice{
+  background:#fff7e6;color:#795315;
+  border:1px solid #f0d69b;
+  border-radius:10px;padding:12px;
+  font-size:12px;line-height:1.7;margin-top:16px;
+}
+.center{text-align:center}
+.big-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:#e7f8ef;color:var(--green);
+  display:grid;place-items:center;
+  margin:8px auto 18px;font-size:39px;
+}
+.status{
+  display:inline-block;padding:5px 9px;
+  border-radius:20px;background:#fff1cc;
+  color:#8a5a00;font-size:11px;font-weight:800;
+}
+.status.accepted{background:#e5f7ed;color:var(--green)}
+.status.rejected{background:#fff0f1;color:var(--red)}
+.stats{display:grid;gap:8px;margin:16px 0}
+.stat{
+  border:1px solid var(--border);
+  border-radius:10px;padding:10px 12px;
+  display:flex;justify-content:space-between;
+}
+.stat span{font-size:12px;color:var(--muted)}
+.stat strong{font-size:19px}
+.order-card{
+  border:1px solid var(--border);
+  border-radius:11px;padding:12px;margin:12px 0;
+}
+.order-head{
+  display:flex;justify-content:space-between;
+  align-items:start;gap:8px;margin-bottom:10px;
+}
+.order-id{font-size:12px;font-weight:800;overflow-wrap:anywhere}
+.order-detail{font-size:12px;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
+.actions{display:flex;gap:7px;margin-top:11px}
+.actions .btn{margin:0;padding:9px 6px;font-size:12px}
+.btn.accept{background:var(--green)}
+.btn.reject{background:var(--red)}
+.empty{
+  text-align:center;padding:25px 12px;
+  color:var(--muted);font-size:13px;
+  border:1px dashed #cbd5e1;border-radius:10px;
+}
+.footer{text-align:center;color:#78869a;font-size:11px;padding:0 8px 25px}
+.theme-bk{--theme:var(--pink)}
+.theme-ng{--theme:var(--orange)}
+.theme-rk{--theme:var(--purple)}
+.theme-up{--theme:var(--teal)}
+.bk-logo{background:var(--pink)}
+.ng-logo{background:var(--orange)}
+.rk-logo{background:var(--purple)}
+.up-logo{background:var(--teal)}
+.hidden{display:none!important}
+@media(max-width:420px){
+  .desktop-note{display:none}
+  .stage{padding:0}
+  .phone{
+    max-width:none;border-radius:0;
+    border:0;box-shadow:none;min-height:calc(100vh - 60px);
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span>M</span> MyPay</div>
+  <button onclick="showScreen('admin')">Admin Panel</button>
+</header>
+
+<div class="desktop-note">
+  মোবাইল-সাইজ পেমেন্ট ওয়েবসাইট · Mobile-sized on desktop
+</div>
+
+<main class="stage">
+<div class="phone" id="phone">
+
+  <!-- HOME PAGE -->
+  <section id="home" class="screen active theme-bk">
+    <div class="provider-header">
+      <span class="provider-logo">M</span> MyPay Checkout
+    </div>
+    <div class="content center">
+      <h1>পেমেন্ট পদ্ধতি বেছে নিন</h1>
+      <p class="muted">
+        নিচের অপশন থেকে আপনার পছন্দের পেমেন্ট মাধ্যম নির্বাচন করুন।
+      </p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার</span><strong id="homeOrder">নতুন অর্ডার</strong></div>
+        <div class="line"><span>সার্ভিস</span><strong>Digital Service</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong style="font-size:22px">৳100.00</strong></div>
+      </div>
+    </div>
+
+    <div class="content" style="padding-top:0">
+      <a href="#" class="payment-option" onclick="choose('bKash');return false">
+        <span class="payment-logo bk-logo">b</span>
+        <span class="payment-copy"><b>bKash</b><small>গোলাপি থিম</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="payment-option" onclick="choose('Nagad');return false">
+        <span class="payment-logo ng-logo">ন</span>
+        <span class="payment-copy"><b>Nagad</b><small>কমলা থিম</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="payment-option" onclick="choose('Rocket');return false">
+        <span class="payment-logo rk-logo">R</span>
+        <span class="payment-copy"><b>Rocket</b><small>বেগুনি থিম</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <a href="#" class="payment-option" onclick="choose('Upay');return false">
+        <span class="payment-logo up-logo">u</span>
+        <span class="payment-copy"><b>Upay</b><small>টিল থিম</small></span>
+        <span class="arrow">›</span>
+      </a>
+      <div class="notice">
+        <b>ডেমো:</b> এই ওয়েবসাইট আসল টাকা গ্রহণ বা পেমেন্ট যাচাই করে না।
+        এখানে বাস্তব টাকা পাঠাবেন না।
+      </div>
+    </div>
+  </section>
+
+  <!-- BKASH PAGE -->
+  <section id="bKash" class="screen theme-bk">
+    <div class="provider-header">
+      <button class="back" onclick="showScreen('home')">‹</button>
+      <span class="provider-logo">b</span> bKash
+    </div>
+    <div class="content">
+      <h1>bKash পেমেন্ট</h1>
+      <p class="muted">bKash থিমের পেমেন্ট ফর্ম।</p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার আইডি</span><strong class="orderId">—</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong>৳100.00</strong></div>
+        <div class="line"><span>পেমেন্ট মাধ্যম</span><strong>bKash</strong></div>
+      </div>
+      <label for="phone-bKash">আপনার মোবাইল নম্বর</label>
+      <input id="phone-bKash" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX">
+      <label for="trx-bKash">Transaction ID (TrxID)</label>
+      <input id="trx-bKash" maxlength="40" placeholder="TrxID লিখুন">
+      <label for="note-bKash">নোট (ঐচ্ছিক)</label>
+      <textarea id="note-bKash"></textarea>
+      <button class="btn" onclick="submitPayment('bKash')">পেমেন্ট তথ্য জমা দিন</button>
+      <button class="btn secondary" onclick="showScreen('home')">অন্য পদ্ধতি</button>
+      <div class="notice">ডেমো ফর্ম: কোনো bKash API সংযুক্ত নেই।</div>
+    </div>
+  </section>
+
+  <!-- NAGAD PAGE -->
+  <section id="Nagad" class="screen theme-ng">
+    <div class="provider-header">
+      <button class="back" onclick="showScreen('home')">‹</button>
+      <span class="provider-logo">ন</span> Nagad
+    </div>
+    <div class="content">
+      <h1>Nagad পেমেন্ট</h1>
+      <p class="muted">Nagad কমলা থিমের আলাদা পেমেন্ট ফর্ম।</p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার আইডি</span><strong class="orderId">—</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong>৳100.00</strong></div>
+        <div class="line"><span>পেমেন্ট মাধ্যম</span><strong>Nagad</strong></div>
+      </div>
+      <label for="phone-Nagad">আপনার মোবাইল নম্বর</label>
+      <input id="phone-Nagad" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX">
+      <label for="trx-Nagad">Transaction ID (TrxID)</label>
+      <input id="trx-Nagad" maxlength="40" placeholder="TrxID লিখুন">
+      <label for="note-Nagad">নোট (ঐচ্ছিক)</label>
+      <textarea id="note-Nagad"></textarea>
+      <button class="btn" onclick="submitPayment('Nagad')">পেমেন্ট তথ্য জমা দিন</button>
+      <button class="btn secondary" onclick="showScreen('home')">অন্য পদ্ধতি</button>
+      <div class="notice">ডেমো ফর্ম: কোনো Nagad API সংযুক্ত নেই।</div>
+    </div>
+  </section>
+
+  <!-- ROCKET PAGE -->
+  <section id="Rocket" class="screen theme-rk">
+    <div class="provider-header">
+      <button class="back" onclick="showScreen('home')">‹</button>
+      <span class="provider-logo">R</span> Rocket
+    </div>
+    <div class="content">
+      <h1>Rocket পেমেন্ট</h1>
+      <p class="muted">Rocket বেগুনি থিমের আলাদা পেমেন্ট ফর্ম।</p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার আইডি</span><strong class="orderId">—</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong>৳100.00</strong></div>
+        <div class="line"><span>পেমেন্ট মাধ্যম</span><strong>Rocket</strong></div>
+      </div>
+      <label for="phone-Rocket">আপনার মোবাইল নম্বর</label>
+      <input id="phone-Rocket" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX">
+      <label for="trx-Rocket">Transaction ID (TrxID)</label>
+      <input id="trx-Rocket" maxlength="40" placeholder="TrxID লিখুন">
+      <label for="note-Rocket">নোট (ঐচ্ছিক)</label>
+      <textarea id="note-Rocket"></textarea>
+      <button class="btn" onclick="submitPayment('Rocket')">পেমেন্ট তথ্য জমা দিন</button>
+      <button class="btn secondary" onclick="showScreen('home')">অন্য পদ্ধতি</button>
+      <div class="notice">ডেমো ফর্ম: কোনো Rocket API সংযুক্ত নেই।</div>
+    </div>
+  </section>
+
+  <!-- UPAY PAGE -->
+  <section id="Upay" class="screen theme-up">
+    <div class="provider-header">
+      <button class="back" onclick="showScreen('home')">‹</button>
+      <span class="provider-logo">u</span> Upay
+    </div>
+    <div class="content">
+      <h1>Upay পেমেন্ট</h1>
+      <p class="muted">Upay টিল-সবুজ থিমের আলাদা পেমেন্ট ফর্ম।</p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার আইডি</span><strong class="orderId">—</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong>৳100.00</strong></div>
+        <div class="line"><span>পেমেন্ট মাধ্যম</span><strong>Upay</strong></div>
+      </div>
+      <label for="phone-Upay">আপনার মোবাইল নম্বর</label>
+      <input id="phone-Upay" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX">
+      <label for="trx-Upay">Transaction ID (TrxID)</label>
+      <input id="trx-Upay" maxlength="40" placeholder="TrxID লিখুন">
+      <label for="note-Upay">নোট (ঐচ্ছিক)</label>
+      <textarea id="note-Upay"></textarea>
+      <button class="btn" onclick="submitPayment('Upay')">পেমেন্ট তথ্য জমা দিন</button>
+      <button class="btn secondary" onclick="showScreen('home')">অন্য পদ্ধতি</button>
+      <div class="notice">ডেমো ফর্ম: কোনো Upay API সংযুক্ত নেই।</div>
+    </div>
+  </section>
+
+  <!-- PENDING PAGE -->
+  <section id="pending" class="screen">
+    <div class="provider-header" style="background:#172538">
+      পেমেন্ট তথ্য জমা হয়েছে
+    </div>
+    <div class="content center">
+      <div class="big-icon" style="background:#fff1cc;color:#8a5a00">◷</div>
+      <h1>যাচাইয়ের অপেক্ষায়</h1>
+      <p class="muted">অর্ডারটি Admin Panel-এ Pending হিসেবে জমা হয়েছে।</p>
+      <div class="summary">
+        <div class="line"><span>অর্ডার আইডি</span><strong id="pendingOrderId">—</strong></div>
+        <div class="line"><span>পেমেন্ট মাধ্যম</span><strong id="pendingMethod">—</strong></div>
+        <div class="line"><span>স্ট্যাটাস</span><strong><span class="status">PENDING</span></strong></div>
+      </div>
+      <button class="btn" onclick="showScreen('admin')">Admin Panel খুলুন</button>
+      <button class="btn secondary" onclick="showScreen('home')">হোমে ফিরুন</button>
+    </div>
+  </section>
+
+  <!-- ADMIN PAGE -->
+  <section id="admin" class="screen">
+    <div class="provider-header" style="background:#172538">
+      <button class="back" onclick="showScreen('home')">‹</button>
+      Admin Panel
+    </div>
+    <div class="content">
+      <h1>Payment Dashboard</h1>
+      <p class="muted">জমা হওয়া অর্ডার হাতে Accept বা Reject করো।</p>
+      <div class="notice">
+        এই ডেমোতে তথ্য একই ব্রাউজারের localStorage-এ থাকে।
+        এটি নিরাপদ Admin Login বা অনলাইন Database নয়।
+      </div>
+      <div class="stats">
+        <div class="stat"><span>Pending</span><strong id="countPending">0</strong></div>
+        <div class="stat"><span>Accepted</span><strong id="countAccepted">0</strong></div>
+        <div class="stat"><span>Rejected</span><strong id="countRejected">0</strong></div>
+      </div>
+      <label for="filter">স্ট্যাটাস ফিল্টার</label>
+      <select id="filter" onchange="renderOrders()">
+        <option value="ALL">সব অর্ডার</option>
+        <option value="PENDING">Pending</option>
+        <option value="ACCEPTED">Accepted</option>
+        <option value="REJECTED">Rejected</option>
+      </select>
+      <div id="orderList"></div>
+      <div id="emptyOrders" class="empty">এখনো অর্ডার নেই। পেমেন্ট পেজ থেকে তথ্য জমা দাও।</div>
+      <button class="btn secondary" onclick="exportOrders()">অর্ডার JSON ডাউনলোড</button>
+      <button class="btn secondary" onclick="showScreen('home')">পেমেন্ট পেজে ফিরুন</button>
+    </div>
+  </section>
+
+</div>
+</main>
+<div class="footer">MyPay Demo · এটি কোনো অফিসিয়াল bKash/Nagad/Rocket/Upay পেজ নয়</div>
+
+<script>
+const KEY = "mypay_orders_demo_v2";
+let orders = [];
+let currentOrder = "";
+const methods = {
+  bKash: { color:"#e2136e", logo:"b" },
+  Nagad: { color:"#f58220", logo:"ন" },
+  Rocket: { color:"#7b2b8e", logo:"R" },
+  Upay: { color:"#009c8d", logo:"u" }
+};
+
+try {
+  const data = JSON.parse(localStorage.getItem(KEY) || "[]");
+  if (Array.isArray(data)) orders = data;
+} catch (e) {
+  orders = [];
+}
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(orders));
+  } catch (e) {
+    alert("এই ব্রাউজারে অর্ডার সংরক্ষণ করা যায়নি।");
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.toggle("active", screen.id === id);
+  });
+  if (id === "admin") renderOrders();
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+function choose(method) {
+  currentOrder = "MP-" + Date.now().toString().slice(-9);
+  document.getElementById("homeOrder").textContent = currentOrder;
+
+  // Theme the selected provider's page
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("theme-bk","theme-ng","theme-rk","theme-up");
+  });
+  const theme = {
+    bKash:"theme-bk", Nagad:"theme-ng",
+    Rocket:"theme-rk", Upay:"theme-up"
+  }[method];
+  document.getElementById(method).classList.add(theme);
+
+  document.querySelectorAll("#" + method + " .orderId")
+    .forEach(el => el.textContent = currentOrder);
+
+  document.getElementById("phone-" + method).value = "";
+  document.getElementById("trx-" + method).value = "";
+  document.getElementById("note-" + method).value = "";
+
+  showScreen(method);
+}
+
+function submitPayment(method) {
+  const phone = document.getElementById("phone-" + method).value.trim();
+  const trx = document.getElementById("trx-" + method).value.trim();
+  const note = document.getElementById("note-" + method).value.trim();
+
+  if (!/^01[3-9][0-9]{8}$/.test(phone)) {
+    alert("ডেমোর জন্য সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।");
+    return;
+  }
+  if (trx.length < 5) {
+    alert("Transaction ID লিখুন।");
+    return;
+  }
+
+  const order = {
+    id: currentOrder || ("MP-" + Date.now().toString().slice(-9)),
+    method, phone, trx, note, amount:100,
+    status:"PENDING",
+    created:new Date().toLocaleString("bn-BD"),
+    adminNote:""
+  };
+
+  orders.unshift(order);
+  save();
+
+  document.getElementById("pendingOrderId").textContent = order.id;
+  document.getElementById("pendingMethod").textContent = order.method;
+  showScreen("pending");
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  })[c]);
+}
+
+function renderOrders() {
+  const filter = document.getElementById("filter").value;
+  const filtered = orders.filter(o => filter === "ALL" || o.status === filter);
+
+  document.getElementById("countPending").textContent =
+    orders.filter(o => o.status === "PENDING").length;
+  document.getElementById("countAccepted").textContent =
+    orders.filter(o => o.status === "ACCEPTED").length;
+  document.getElementById("countRejected").textContent =
+    orders.filter(o => o.status === "REJECTED").length;
+
+  document.getElementById("emptyOrders").style.display =
+    filtered.length ? "none" : "block";
+
+  document.getElementById("orderList").innerHTML = filtered.map(o => {
+    const cls = o.status === "ACCEPTED" ? "accepted" :
+      o.status === "REJECTED" ? "rejected" : "";
+    const actions = o.status === "PENDING" ? `
+      <div class="actions">
+        <button class="btn accept" onclick="review('${o.id}','ACCEPTED')">Accept</button>
+        <button class="btn reject" onclick="review('${o.id}','REJECTED')">Reject</button>
+      </div>` : `
+      <p class="muted">Review complete${o.adminNote ? ": " + escapeHTML(o.adminNote) : ""}</p>`;
+
+    return `
+      <article class="order-card">
+        <div class="order-head">
+          <div>
+            <div class="order-id">#${escapeHTML(o.id)}</div>
+            <div class="order-detail">${escapeHTML(o.created)}</div>
+          </div>
+          <span class="status ${cls}">${escapeHTML(o.status)}</span>
+        </div>
+        <div class="line"><span>মাধ্যম</span><strong>${escapeHTML(o.method)}</strong></div>
+        <div class="line"><span>পরিমাণ</span><strong>৳${escapeHTML(o.amount)}</strong></div>
+        <div class="order-detail">
+          নম্বর: ${escapeHTML(o.phone)}<br>
+          TrxID: ${escapeHTML(o.trx)}
+          ${o.note ? "<br>নোট: " + escapeHTML(o.note) : ""}
+        </div>
+        ${actions}
+      </article>`;
+  }).join("");
+}
+
+function review(id, status) {
+  const order = orders.find(o => o.id === id);
+  if (!order || order.status !== "PENDING") return;
+
+  if (status === "ACCEPTED") {
+    const ok = confirm(
+      "নিজের পেমেন্ট অ্যাপে আসল টাকা ও TrxID মিলিয়ে যাচাই করেছ?"
+    );
+    if (!ok) return;
+    order.adminNote = prompt("Admin note (ঐচ্ছিক):", "হাতে যাচাই করা হয়েছে") || "";
+  } else {
+    const reason = prompt("Reject করার কারণ লিখুন:");
+    if (reason === null) return;
+    order.adminNote = reason;
+  }
+
+  order.status = status;
+  order.reviewed = new Date().toLocaleString("bn-BD");
+  save();
+  renderOrders();
+}
+
+function exportOrders() {
+  const blob = new Blob(
+    [JSON.stringify(orders, null, 2)],
+    {type:"application/json"}
+  );
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "mypay-orders.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+renderOrders();
+</script>
+</body>
+</html>
