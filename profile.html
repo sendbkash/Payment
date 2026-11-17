@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="bd">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্রোফাইল — XE66.COM</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="logo-badge">X6</span><span>XE66</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">হোম</a>
+      <a href="offers.html">অফার</a>
+      <a href="deposit.html">জমা</a>
+      <a href="withdrawal.html">উত্তোলন</a>
+      <a href="profile.html" class="active">প্রোফাইল</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost desktop-only" href="profile.html">লগইন</a>
+      <a class="btn btn-gold desktop-only" href="profile.html">রেজিস্টার</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('mobile-open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>আমার <span class="hl">প্রোফাইল</span></h1>
+    <p>আপনার অ্যাকাউন্ট তথ্য, ব্যালেন্স আর ইতিহাস এক জায়গায়।</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="profile-grid">
+      <!-- Side -->
+      <div class="profile-side">
+        <div class="avatar">A</div>
+        <h3>আফরিন</h3>
+        <div class="uid">UID: XE66-20260481</div>
+        <div class="wallet">
+          <div class="lbl">মোট ব্যালেন্স</div>
+          <div class="amt">৳ 12,850</div>
+        </div>
+        <a class="btn btn-gold btn-block" href="deposit.html">+ জমা দিন</a>
+        <a class="btn btn-outline btn-block" href="withdrawal.html">উত্তোলন করুন</a>
+      </div>
+
+      <!-- Info -->
+      <div class="info-card">
+        <div class="info-row"><span class="k">অ্যাকাউন্ট নাম</span><span class="v">আফরিন</span></div>
+        <div class="info-row"><span class="k">ফোন নাম্বার</span><span class="v">+880 17XX-XXXXXX</span></div>
+        <div class="info-row"><span class="k">ইমেইল</span><span class="v">afarin@example.com</span></div>
+        <div class="info-row"><span class="k">অ্যাকাউন্ট স্টেটাস</span><span class="tag">সক্রিয়</span></div>
+        <div class="info-row"><span class="k">VIP ক্লাব</span><span class="tag warn">VIP সদস্য</span></div>
+        <div class="info-row"><span class="k">বিলিং ঠিকানা</span><span class="v">সাতক্ষীরা, খুলনা</span></div>
+        <div class="info-row"><span class="k">সর্বশেষ জমা</span><span class="v">বাংলাদেশ উপমহাদেশ</span></div>
+
+        <div style="margin-top:26px;">
+          <a class="btn btn-ghost btn-block" href="#" onclick="showToast('প্রোফাইল এডিট হবে');return false;">তথ্য এডিট করুন</a>
+          <a class="btn btn-ghost btn-block" style="margin-top:10px;" href="#" onclick="showToast('সিকুরিটি সেটিং ওপেন হবে');return false;">সিকুরিটি সেটিং</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><span class="logo-badge">X6</span><span>XE66</span></a>
+        <p>XE66.COM — সেরা বেট রেকর্ড, ফ্রি বোনাস আর ২৪/৭ সমর্থনের সম্পূর্ণ গেমিং অভিজ্ঞতা।</p>
+      </div>
+      <div class="footer-col">
+        <h4>নেভিগেশন</h4>
+        <a href="index.html">হোম</a>
+        <a href="offers.html">অফার</a>
+        <a href="deposit.html">জমা</a>
+        <a href="withdrawal.html">উত্তোলন</a>
+        <a href="profile.html">প্রোফাইল</a>
+      </div>
+      <div class="footer-col">
+        <h4>সহায়তা</h4>
+        <a href="#" onclick="showToast('24/7 সাপোর্ট টিমের সাথে যুক্ত হচ্ছেন');return false;">24/7 সমর্থন</a>
+        <a href="#" onclick="showToast('অফার নিয়ম দেখুন');return false;">অফারের নিয়ম</a>
+        <a href="#" onclick="showToast('পেমেন্ট পদ্ধতি দেখুন');return false;">পেমেন্ট পদ্ধতি</a>
+        <a href="#" onclick="showToast('অনুশীলনের নিয়ম দেখুন');return false;">খেলার নিয়ম</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="copy">©2026 XE66.COM সর্বস্বত্ব সংরক্ষিত</div>
+      <div class="age">⚠ ২১+ — কেবল অধিকাংশ বয়সীরা খেলতে পারেন</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

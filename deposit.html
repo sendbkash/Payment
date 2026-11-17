@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bd">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>জমা — XE66.COM</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="logo-badge">X6</span><span>XE66</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">হোম</a>
+      <a href="offers.html">অফার</a>
+      <a href="deposit.html" class="active">জমা</a>
+      <a href="withdrawal.html">উত্তোলন</a>
+      <a href="profile.html">প্রোফাইল</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost desktop-only" href="profile.html">লগইন</a>
+      <a class="btn btn-gold desktop-only" href="profile.html">রেজিস্টার</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('mobile-open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>জমা <span class="hl">দিন</span></h1>
+    <p>পছন্দের পেমেন্ট পদ্ধতি বেছে নিন — ব্যালেন্স তাৎক্ষণিক জমা হবে।</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="form-card">
+      <form data-demo data-msg="জমার প্রক্রিয়া সফল হয়েছে! ব্যালেন্স যোগ হয়েছে ✅" onsubmit="return false;">
+        <div class="field">
+          <label>জমার পরিমাণ (৳)</label>
+          <input type="number" placeholder="যেমন: 1000" required min="1">
+        </div>
+
+        <div class="field">
+          <label>পেমেন্ট পদ্ধতি বেছে নিন</label>
+          <div class="method-list">
+            <div class="method" onclick="this.classList.add('selected');document.querySelectorAll('.method').forEach(x=>{if(x!==this)x.classList.remove('selected')})">
+              <span class="m-ic">📱</span>
+              <div><b>বিক্রম</b><small>দ্রুত জমা · কার্যকর</small></div>
+              <span class="check"></span>
+            </div>
+            <div class="method" onclick="this.classList.add('selected');document.querySelectorAll('.method').forEach(x=>{if(x!==this)x.classList.remove('selected')})">
+              <span class="m-ic">🅛</span>
+              <div><b>লাকিমিল</b><small>কার্যকর</small></div>
+              <span class="check"></span>
+            </div>
+            <div class="method" onclick="this.classList.add('selected');document.querySelectorAll('.method').forEach(x=>{if(x!==this)x.classList.remove('selected')})">
+              <span class="m-ic">🅑</span>
+              <div><b>বাংলাডে</b><small>কার্যকর</small></div>
+              <span class="check"></span>
+            </div>
+            <div class="method" onclick="this.classList.add('selected');document.querySelectorAll('.method').forEach(x=>{if(x!==this)x.classList.remove('selected')})">
+              <span class="m-ic">🏦</span>
+              <div><b>ব্যাংক ট্রান্সফার</b><small>১–১০ মিনিটে জমা</small></div>
+              <span class="check"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>লাগানো কোড (আছে তবে)</label>
+          <input type="text" placeholder="বোনাস কোড ইনপুট করুন">
+          <div class="hint">বোনাস কোড ব্যবহার করলে অতিরিক্ত বোনাস পাবেন।</div>
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-block">জমা নিশ্চিত করুন</button>
+      </form>
+    </div>
+
+    <div class="promo-banner" style="margin-top:34px;">
+      <div>
+        <h3>নতুন খেলোয়াড় স্বাগত বোনাস</h3>
+        <p>প্রথম জমায় পান ১০০% বোনাস — অফার সেকশন দেখুন।</p>
+      </div>
+      <a class="btn btn-gold" href="offers.html">অফার দেখুন</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><span class="logo-badge">X6</span><span>XE66</span></a>
+        <p>XE66.COM — সেরা বেট রেকর্ড, ফ্রি বোনাস আর ২৪/৭ সমর্থনের সম্পূর্ণ গেমিং অভিজ্ঞতা।</p>
+      </div>
+      <div class="footer-col">
+        <h4>নেভিগেশন</h4>
+        <a href="index.html">হোম</a>
+        <a href="offers.html">অফার</a>
+        <a href="deposit.html">জমা</a>
+        <a href="withdrawal.html">উত্তোলন</a>
+        <a href="profile.html">প্রোফাইল</a>
+      </div>
+      <div class="footer-col">
+        <h4>সহায়তা</h4>
+        <a href="#" onclick="showToast('24/7 সাপোর্ট টিমের সাথে যুক্ত হচ্ছেন');return false;">24/7 সমর্থন</a>
+        <a href="#" onclick="showToast('অফার নিয়ম দেখুন');return false;">অফারের নিয়ম</a>
+        <a href="#" onclick="showToast('পেমেন্ট পদ্ধতি দেখুন');return false;">পেমেন্ট পদ্ধতি</a>
+        <a href="#" onclick="showToast('অনুশীলনের নিয়ম দেখুন');return false;">খেলার নিয়ম</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="copy">©2026 XE66.COM সর্বস্বত্ব সংরক্ষিত</div>
+      <div class="age">⚠ ২১+ — কেবল অধিকাংশ বয়সীরা খেলতে পারেন</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
